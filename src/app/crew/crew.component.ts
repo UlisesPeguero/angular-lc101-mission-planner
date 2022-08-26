@@ -24,7 +24,7 @@ export class CrewComponent implements OnInit {
   }
 
   add(memberName: string, isFirst: boolean): void {
-    this.crew.push({name: memberName, firstMission: isFirst});
+    if(!this.existsInCrew(memberName)) this.crew.push({name: memberName, firstMission: isFirst});
   }
 
   remove(member: CrewMember): void {
@@ -39,5 +39,9 @@ export class CrewComponent implements OnInit {
   save(name: string, member: CrewMember) {
     member['name'] = name;
     this.memberBeingEdited = null;
+  }
+
+  existsInCrew(name: string): boolean {
+    return this.crew.find(member => member.name === name) !== undefined;
   }
 }
